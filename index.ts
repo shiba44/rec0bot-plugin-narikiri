@@ -26,42 +26,46 @@ export const onStop = () => {
   logger.debug('onStop()');
 };
 
-export const onMessage = async (message: string, context: MessageContext, data: {[key: string]: any}) => {
+export const onMessage = async (received_message: string, context: MessageContext, data: {[key: string]: any}) => {
   // ignore bot message
   const userId = context.userId;
   if (userId == undefined) {
     return;
   }
 
-  const splited_message = message.split(' ');
-  if (splited_message.length < 3) {
-    return;
-  }
-
   const ChannelId = await mBot.getChannelId(process.env.REC0_ENV_NARIKIRI_CHANNEL || 'narikiri');
 
-  const [prefix, action, ...trimmed_message] = splited_message;
+  const [prefix, action, ...word_array] = received_message.split(' ');
+
   if (action == 'reset') {
     narikiri_username[userId] = undefined;
     narikiri_icon_emoji[userId] = undefined;
-  } else if (action == 'set') {
-    const username = trimmed_message[0];
-    const icon_emoji = trimmed_message[1];
-    if (username != null) {
-      narikiri_username[userId] = username;
-    }
-    if (icon_emoji != null) {
-      narikiri_icon_emoji[userId] = icon_emoji;
+    return;
+  }
+
+  if (word_array.length == 0) {
+    return;
+  }
+
+  if (action == 'set') {
+    narikiri_username[userId] = word_array[0];
+    if (word_array.length >= 2) {
+      narikiri_icon_emoji[userId] = word_array[1];
     }
     await mBot.sendTalk(ChannelId, `名前が${narikiri_username[userId]}、アイコンが${narikiri_icon_emoji[userId]}のユーザが登録されました`);
-  } else if (action == 'send') {
-    if (trimmed_message != null) {
-      const username = narikiri_username[userId] || '名無し';
-      const icon_emoji = narikiri_icon_emoji[userId] || ':sunglasses:';
-      const options = {username: username, icon_emoji: icon_emoji};
-      await mBot.sendTalk(ChannelId, `${trimmed_message}`, options);
-    }
+    return;
   }
+
+  if (action == 'send') {
+    const message = word_array.join(' ');
+
+    const username = narikiri_username[userId] || '名無し';
+    const icon_emoji = narikiri_icon_emoji[userId] || ':sunglasses:';
+    const options = {username: username, icon_emoji: icon_emoji};
+
+    await mBot.sendTalk(ChannelId, `${message}`, options);
+  }
+
 };
 
 export const onPluginEvent = (eventName: string, value?: any, fromId?: string) => {
