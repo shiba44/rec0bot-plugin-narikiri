@@ -1,7 +1,7 @@
 {
-  "name": "hearful-forwarder",
+  "name": "narikiri-messanger",
   "version": "1.0.0",
-  "description": "A Rec0-bot plugin send hearthul message",
+  "description": "A Rec0-bot plugin send narikiri message",
   "filter_prefixes": [
     "narikiri"
   ],
