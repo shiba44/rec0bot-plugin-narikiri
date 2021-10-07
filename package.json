@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A Rec0-bot plugin send narikiri message",
   "filter_prefixes": [
-    "narikiri"
+    "nrkr"
   ],
   "main": "index.js",
   "scripts": {
