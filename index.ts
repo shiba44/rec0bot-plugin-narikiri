@@ -44,6 +44,18 @@ export const onMessage = async (received_message: string, context: MessageContex
     return;
   }
 
+  if (action == 'list') {
+    var message = "";
+    for (let [regesterdUserId, name] of Object.entries(narikiri_username)) {
+      if (name != undefined) {
+        const icon_emoji = narikiri_icon_emoji[regesterdUserId] || ':sunglasses:';
+        message += `${icon_emoji} ${name} \n`
+      }
+    }
+    await mBot.sendTalk(userId, `${message}`);
+    return;
+  }
+
   if (word_array.length == 0) {
     return;
   }
