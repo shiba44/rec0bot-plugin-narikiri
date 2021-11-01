@@ -40,6 +40,7 @@ export const onMessage = async (received_message: string, context: MessageContex
   if (action == 'reset') {
     narikiri_username[userId] = undefined;
     narikiri_icon_emoji[userId] = undefined;
+    await mBot.sendTalk(userId, "ユーザー情報がリセットされました");
     return;
   }
 
