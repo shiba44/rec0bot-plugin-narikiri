@@ -45,14 +45,18 @@ export const onMessage = async (received_message: string, context: MessageContex
   }
 
   if (action == 'list') {
-    var message = "";
+    var message_array = [];
     for (let [regesterdUserId, name] of Object.entries(narikiri_username)) {
       if (name != undefined) {
         const icon_emoji = narikiri_icon_emoji[regesterdUserId] || ':sunglasses:';
-        message += `${icon_emoji} ${name} \n`
+        message_array.push(`${icon_emoji} ${name}`);
       }
     }
-    await mBot.sendTalk(userId, `${message}`);
+    if (message_array.length == 0) {
+      await mBot.sendTalk(userId, "登録されているユーザーはいません");
+    } else {
+      await mBot.sendTalk(userId, message_array.join('\n'));
+    }
     return;
   }
 
