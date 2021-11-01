@@ -52,7 +52,7 @@ export const onMessage = async (received_message: string, context: MessageContex
     if (word_array.length >= 2) {
       narikiri_icon_emoji[userId] = word_array[1];
     }
-    await mBot.sendTalk(ChannelId, `名前が${narikiri_username[userId]}、アイコンが${narikiri_icon_emoji[userId]}のユーザが登録されました`);
+    await mBot.sendTalk(userId, `名前が${narikiri_username[userId]}、アイコンが${narikiri_icon_emoji[userId]}のユーザが登録されました`);
     return;
   }
 
