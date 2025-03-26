@@ -1,7 +1,7 @@
 import * as log4js from '@log4js-node/log4js-api';
 import * as path from 'path';
-import type {BotProxy} from './bot-proxy.interface';
-import type {MessageContext} from './message-context.interface';
+import type {BotProxy} from './bot-proxy.interface.ts';
+import type {MessageContext} from './message-context.interface.ts';
 
 let mBot: BotProxy;
 let logger: log4js.Logger;
