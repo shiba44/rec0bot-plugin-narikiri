@@ -1,13 +1,14 @@
 {
   "name": "narikiri-messanger",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A Rec0-bot plugin send narikiri message",
   "filter_prefixes": [
     "nrkr"
   ],
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "build": "tsc index.ts",
+    "build": "tsc",
     "clean": "rm -rf *.js node_modules",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,7 +18,7 @@
     "@log4js-node/log4js-api": "^1.0.2"
   },
   "devDependencies": {
-    "@types/node": "^11.9.3",
-    "typescript": "^3.3.3"
+    "@types/node": "^22.13.10",
+    "typescript": "^5.8.2"
   }
 }
